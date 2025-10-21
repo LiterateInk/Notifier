@@ -1,12 +1,10 @@
-import { app } from "../gplay";
+import * as gplay from "../gplay";
 import { readVersionFor, writeVersionFor } from "../version";
 
 export const checkAndNotifyIzly = async (): Promise<void> => {
-  const { version, updated, icon, title } = await app({
-    appId: "fr.smoney.android.izly.REC",
-    lang: "fr",
-    country: "fr",
-  });
+  const { version, title, updated, icon } = await gplay.version(
+    "fr.smoney.android.izly.REC"
+  );
 
   const previousVersion = readVersionFor("izly");
   if (previousVersion === version) return; // do nothing.
