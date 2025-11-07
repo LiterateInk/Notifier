@@ -47,9 +47,9 @@ export const checkAndNotifyIzly = async (): Promise<void> => {
           ],
           footer: {
             text: title,
-            icon_url: icon,
+            icon_url: icon.href,
           },
-          timestamp: new Date(updated).toISOString(),
+          timestamp: updated.toISOString(),
         },
       ],
       username: "Notifier",
