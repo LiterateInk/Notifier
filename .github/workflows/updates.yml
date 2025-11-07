@@ -25,6 +25,7 @@ jobs:
       - run: bun run ./src/index.ts
         env:
           IZLY_WEBHOOK: ${{ secrets.IZLY_WEBHOOK }}
+          ECOLEDIRECTE_WEBHOOK: ${{ secrets.ECOLEDIRECTE_WEBHOOK }}
 
       - run: |
           git config --global user.name 'github-actions[bot]'
