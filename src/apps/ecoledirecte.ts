@@ -3,7 +3,7 @@ import { readVersionFor, writeVersionFor } from "../version";
 
 const KEY = "ecoledirecte";
 
-export const checkAndNotifyIzly = async (): Promise<void> => {
+export const checkAndNotifyEcoleDirecte = async (): Promise<void> => {
   const { version, title, updated, icon } = await appstore.version(
     "com.ecoledirecte.edmobile"
   );
