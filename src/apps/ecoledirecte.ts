@@ -1,24 +1,19 @@
-import * as gplay from "../gplay";
+import * as appstore from "../appstore";
 import { readVersionFor, writeVersionFor } from "../version";
 
-const KEY = "izly";
+const KEY = "ecoledirecte";
 
 export const checkAndNotifyIzly = async (): Promise<void> => {
-  const { version, title, updated, icon } = await gplay.version(
-    "fr.smoney.android.izly.REC"
+  const { version, title, updated, icon } = await appstore.version(
+    "com.ecoledirecte.edmobile"
   );
 
   const previousVersion = readVersionFor(KEY);
   if (previousVersion === version) return; // do nothing.
 
-  // update listing!
   await writeVersionFor(KEY, version);
 
-  // send webhook with previous/new versions.
-  const previousVersionEzly = previousVersion.split("_")[0];
-  const versionEzly = version.split("_")[0];
-
-  await fetch(Bun.env.IZLY_WEBHOOK!, {
+  await fetch(Bun.env.ECOLEDIRECTE_WEBHOOK!, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -27,23 +22,18 @@ export const checkAndNotifyIzly = async (): Promise<void> => {
       embeds: [
         {
           title: "New version available!",
-          description:
-            "Make sure to update the constants of the following repositories to prevent issues when calling the API.",
-          color: 0x64c1ef,
+          // description:
+          //   "Make sure to update the constants of the following repositories to prevent issues when calling the API.",
+          color: 0x6f7af5,
           fields: [
             {
-              name: "JS/TS",
-              value:
-                "[`/src/core/constants.ts`](https://github.com/LiterateInk/Ezly.js/blob/main/src/core/constants.ts#L1)",
-            },
-            {
               name: "Old Version",
-              value: `\`${previousVersionEzly}\``,
+              value: `\`${previousVersion}\``,
               inline: true,
             },
             {
               name: "New Version",
-              value: `\`${versionEzly}\``,
+              value: `\`${version}\``,
               inline: true,
             },
           ],
